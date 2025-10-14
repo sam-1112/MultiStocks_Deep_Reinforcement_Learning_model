@@ -1,0 +1,25 @@
+data:
+  indicator: "^DJI"
+  ticker_list: ["AXP", "GS", "JPM", "AMGN", "HD", "MCD", "AAPL", "HON", "MMM", "BA", "IBM", "MRK", "CAT", "INTC", "MSFT", "CISCO", "JNJ", "NKE", "CVX", "KO", "PG", "TRV", "UNH", "CRM", "VZ", "V", "WBA", "WMT", "DIS", "DOW"]
+  
+  
+  date_start: "2010-01-01"
+  date_end: "2023-03-01"
+  train_date_start: "2010-01-01"
+  train_date_end: "2021-10-01"
+  test_date_start: "2021-10-01"
+  test_date_end: "2023-03-01"
+
+env:
+  window_size: 10
+  features: 5
+  action_space: [sell, hold, buy]
+  risk_agent: 1
+  return_agent: 1
+  trade_max_amount: 100
+  initial_balance: 1000000.0
+  reward_optimization: False
+algo:
+
+agent:
+
