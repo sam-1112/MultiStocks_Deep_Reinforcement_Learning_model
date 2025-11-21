@@ -1,7 +1,14 @@
 data:
   indicator: "^DJI"
-  ticker_list: ["AXP", "GS", "JPM", "AMGN", "HD", "MCD", "AAPL", "HON", "MMM", "BA", "IBM", "MRK", "CAT", "INTC", "MSFT", "CISCO", "JNJ", "NKE", "CVX", "KO", "PG", "TRV", "UNH", "CRM", "VZ", "V", "WBA", "WMT", "DIS", "DOW"]
-  
+  ticker_list: ["AXP", "GS", "JPM", "AMGN", "HD", "MCD", "AAPL", "HON", "MMM", "BA", "IBM", "MRK", "CAT", "INTC", "MSFT", "CSCO", "JNJ", "NKE", "CVX", "KO", "PG", "TRV", "UNH", "CRM", "VZ", "V", "WBA", "WMT", "DIS", "DOW"]
+  fundamental:
+    # api_key: "UDAA18G9A87TS9S9"
+    api_key: "NEP64MJPPTJKLK8L"
+    indicator_list: ["INCOME_STATEMENT", "BALANCE_SHEET", "CASH_FLOW"]
+    features: ["Current Ratio", "Acid Test Ratio", "Operating Cash Flow Ratio", "Debt Ratio", "Debt to Equity Ratio", "Interest Coverage Ratio", "Asset Turnover Ratio", "Inventory Turnover Ratio", "Day Sales in Inventory Ratio", "Return on Ratio", "Return on Equity Ratio"]
+  technical:
+    features: ["macd", "rsi_14", "cci_14", "dmi_14", "turbulence"]
+
   
   date_start: "2010-01-01"
   date_end: "2023-03-01"

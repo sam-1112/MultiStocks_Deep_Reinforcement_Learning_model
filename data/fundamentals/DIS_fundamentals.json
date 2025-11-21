@@ -1,0 +1,11 @@
+{
+  "INCOME_STATEMENT": {
+    "Information": "We have detected your API key as NEP64MJPPTJKLK8L and our standard API rate limit is 25 requests per day. Please subscribe to any of the premium plans at https://www.alphavantage.co/premium/ to instantly remove all daily rate limits."
+  },
+  "BALANCE_SHEET": {
+    "Information": "We have detected your API key as NEP64MJPPTJKLK8L and our standard API rate limit is 25 requests per day. Please subscribe to any of the premium plans at https://www.alphavantage.co/premium/ to instantly remove all daily rate limits."
+  },
+  "CASH_FLOW": {
+    "Information": "We have detected your API key as NEP64MJPPTJKLK8L and our standard API rate limit is 25 requests per day. Please subscribe to any of the premium plans at https://www.alphavantage.co/premium/ to instantly remove all daily rate limits."
+  }
+}
