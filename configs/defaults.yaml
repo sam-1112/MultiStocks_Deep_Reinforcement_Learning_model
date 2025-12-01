@@ -1,32 +1,81 @@
 data:
   indicator: "^DJI"
   ticker_list: ["AXP", "GS", "JPM", "AMGN", "HD", "MCD", "AAPL", "HON", "MMM", "BA", "IBM", "MRK", "CAT", "INTC", "MSFT", "CSCO", "JNJ", "NKE", "CVX", "KO", "PG", "TRV", "UNH", "CRM", "VZ", "V", "WBA", "WMT", "DIS", "DOW"]
+  
   fundamental:
-    # api_key: "UDAA18G9A87TS9S9"
     api_key: "NEP64MJPPTJKLK8L"
     indicator_list: ["INCOME_STATEMENT", "BALANCE_SHEET", "CASH_FLOW"]
-    features: ["Current Ratio", "Acid Test Ratio", "Operating Cash Flow Ratio", "Debt Ratio", "Debt to Equity Ratio", "Interest Coverage Ratio", "Asset Turnover Ratio", "Inventory Turnover Ratio", "Day Sales in Inventory Ratio", "Return on Ratio", "Return on Equity Ratio"]
-  technical:
-    features: ["macd", "rsi_14", "cci_14", "dmi_14", "turbulence"]
-
+    features: 
+      - "Current Ratio"
+      - "Acid Test Ratio"
+      - "Operating Cash Flow Ratio"
+      - "Debt Ratio"
+      - "Debt to Equity Ratio"
+      - "Interest Coverage Ratio"
+      - "Asset Turnover Ratio"
+      - "Inventory Turnover Ratio"
+      - "Day Sales in Inventory Ratio"
+      - "Return on Ratio"
+      - "Return on Equity Ratio"
   
+  technical:
+    features:
+      - "macd"
+      - "rsi_14"
+      - "cci_14"
+      - "dmi_14"
+      - "turbulence"
+  bond:
+    features:
+      "3M": "^IRX"      # 3個月美國國債收益率 (valid)
+      "1Y": "^TNX"      # 1年用TNX替代
+      "2Y": "^TNX"      # 2年用TNX替代
+      "5Y": "^TNX"      # 5年用TNX替代
+      "10Y": "^TNX"     # 10年美國國債收益率
+      "30Y": "^TYX"     # 30年美國國債收益率
+  
+  # 完整數據範圍
   date_start: "2010-01-01"
   date_end: "2023-03-01"
+  
+  # 訓練集日期範圍
   train_date_start: "2010-01-01"
   train_date_end: "2021-10-01"
+  
+  # 測試集日期範圍
   test_date_start: "2021-10-01"
   test_date_end: "2023-03-01"
 
 env:
-  window_size: 10
-  features: 5
-  action_space: [sell, hold, buy]
-  risk_agent: 1
-  return_agent: 1
-  trade_max_amount: 100
+  window_size: 252  # 一年交易日
+  features: 5  # OHLCV
   initial_balance: 1000000.0
-  reward_optimization: False
-algo:
+  max_steps: 252
+  k: 5  # 動作範圍 [-k, k]
+  transaction_cost: 0.001  # 0.1%
 
-agent:
+training:
+  algorithm: "ddpg"  # 可選: ddpg, a2c, ddqn, ppo
+  model_type: "mlp"  # 可選: mlp, cnn, lstm
+  max_episodes: 1000
+  max_timesteps: 50000
+  update_frequency: 10
+  
+  # Early stopping
+  patience: 10
+  validation_frequency: 5
 
+hyperparameters:
+  actor_lr: 1e-4
+  critic_lr: 1e-3
+  gamma: 0.99
+  tau: 0.005
+  hidden_dim: 256
+  batch_size: 64
+  buffer_size: 100000
+
+evaluation:
+  num_episodes: 10
+  use_noise: false
+
+seed: 42
