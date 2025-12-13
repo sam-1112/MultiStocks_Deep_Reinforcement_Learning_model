@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-
+from trader.model_factory import ModelFactory
 class AlgorithmStrategy(ABC):
     """策略模式的抽象基類，定義演算法的接口"""
     

@@ -5,7 +5,8 @@ class MLP(nn.Module):
     """多層感知機 - 支持不同的激活函數"""
     
     def __init__(self, input_dim: int, output_dim: int, hidden_dim: int = 128,
-                 n_layers: int = 2, output_activation: str = 'none'):
+                 n_layers: int = 2, output_activation: str = 'none',
+                 configs: dict = None, **kwargs):
         """
         初始化 MLP
         
@@ -71,9 +72,33 @@ class MLP(nn.Module):
                 if module.bias is not None:
                     nn.init.constant_(module.bias, 0.0)
     
-    def forward(self, x):
-        """前向傳播"""
-        return self.net(x)
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        前向傳播
+        
+        :param x: 輸入張量
+            - 2D: (batch_size, input_dim)
+            - 3D: (batch_size, seq_len, input_dim) -> 自動展平
+        :return: 輸出張量 (batch_size, output_dim)
+        """
+        # ★ 如果輸入是 3D（時序），展平為 2D
+        if x.dim() == 3:
+            batch_size, seq_len, feature_dim = x.size()
+            x = x.reshape(batch_size, -1)  # (batch, seq_len * feature_dim)
+            
+            # 如果展平後維度不匹配，使用線性投影
+            flattened_dim = seq_len * feature_dim
+            if flattened_dim != self.input_dim:
+                if not hasattr(self, 'input_projection'):
+                    self.input_projection = nn.Linear(flattened_dim, self.input_dim).to(x.device)
+                    nn.init.xavier_uniform_(self.input_projection.weight)
+                    nn.init.zeros_(self.input_projection.bias)
+                x = self.input_projection(x)
+        
+        # 使用 self.net 進行前向傳播
+        x = self.net(x)
+        
+        return x
     
     def get_config(self):
         """返回配置信息"""

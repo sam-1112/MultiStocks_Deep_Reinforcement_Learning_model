@@ -1,0 +1,24 @@
+
+# Python cache
+__pycache__/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-workspace
+
+# 日誌和臨時檔案
+logs/
+*.log
+.log
+
+# 模型和資料（超大檔案）
+models/*.pth
+models/*.pt
+models/*.h5
+models/*.ckpt
+models/sub_agents/*.pth

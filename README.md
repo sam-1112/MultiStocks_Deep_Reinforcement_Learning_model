@@ -86,3 +86,36 @@
 11. Return on Equity Ratio = Net Income / Common Stock + Retained Earnings
 
 
+
+./run_pipeline.sh view              # 查看所有 Agent 配置總覽
+./run_pipeline.sh view-sub          # 查看 Sub-Agent 詳細配置
+./run_pipeline.sh view-final        # 查看 Final Agent 詳細配置
+
+# 修改演算法和模型
+./run_pipeline.sh set-algo final ddpg mscnn
+./run_pipeline.sh set-algo sub-0 a2c timesnet
+./run_pipeline.sh set-algo sub-1 ddqn mlp
+
+# 修改注意力機制
+./run_pipeline.sh set-attention on sequence 4    # 啟用 (sequence 類型, 4 頭)
+./run_pipeline.sh set-attention on simple 8      # 啟用 (simple 類型, 8 頭)
+./run_pipeline.sh set-attention off              # 禁用
+
+# 訓練單個 Agent
+./run_pipeline.sh train final       # 訓練 Final Agent
+./run_pipeline.sh train sub-0       # 訓練第 1 個 Sub-Agent
+./run_pipeline.sh train all         # 訓練所有 (multi-agent 完整流程)
+
+# 平行訓練 Sub-Agents (功能3)
+./run_pipeline.sh train-parallel    # 使用預設 worker 數
+./run_pipeline.sh train-parallel 4  # 使用 4 個 worker
+
+./run_pipeline.sh eval final        # 評估 Final Agent
+./run_pipeline.sh eval-all          # 評估所有 Agent
+
+./run_pipeline.sh view                  # 查看配置
+./run_pipeline.sh list-models           # 列出模型
+./run_pipeline.sh clean-models          # 刪除模型
+./run_pipeline.sh clean-logs            # 刪除日誌
+./run_pipeline.sh status                # 檢查狀態
+./run_pipeline.sh gpu-status            # 檢查 GPU
